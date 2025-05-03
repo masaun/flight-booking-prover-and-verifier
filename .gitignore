@@ -12,3 +12,9 @@ docs/
 
 # Dotenv file
 .env
+**/dependencies/
+**/dependencies/
+**/dependencies/
+
+# Extra
+.DS_Store
