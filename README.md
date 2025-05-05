@@ -2,7 +2,7 @@
 
 ## Overview 
 
-- This is the **Flight Booking Prover and Verifier*, which enable a passanger to get a seamless experience to receive a filght ticket (NFT) while the passanger's booking is secury validated thanks to the `ZK proof of flight booking` by using a **flight booking confirmation email** and `Email Proof` of `vLayer`.
+- This is the **Flight Booking Prover and Verifier**, which enable a passanger to get a seamless experience to receive a filght ticket (NFT) while the passanger's booking is secury validated thanks to the `ZK proof of flight booking` by using a **flight booking confirmation email** and `Email Proof` of `vLayer`.
 
 
 ## Userflow
