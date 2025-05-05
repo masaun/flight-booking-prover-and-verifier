@@ -1,66 +1,15 @@
-## Foundry
+# Flight Booking Prover and Verifier /w vLayer's Email Proof
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+## Overview 
 
-Foundry consists of:
+- This is the **Flight Booking Prover and Verifier*, which enable a passanger to get a seamless experience to receive a filght ticket (NFT) while the passanger's booking is secury validated thanks to the `ZK proof of flight booking` by using a **flight booking confirmation email** and `Email Proof` of `vLayer`.
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
 
-## Documentation
+## Userflow
 
-https://book.getfoundry.sh/
+- 1/ When a passenger would book a flight ticket through either an airline's official website or an online travel agency (OTA), the passanger will receive a booking confirmation email from them once the passanger booked a filght.
 
-## Usage
+- 2/ Once a passenger would receive an booking confirmation email, the passanger would call the `generateProofOfFlightBookingFromFlightBookingConfirmationEmail()` function in the `FlightBookingEmailProver.sol` in order to generate a ZK Proof of a flight booking from the booking confirmation email.
 
-### Build
-
-```shell
-$ forge build
-```
-
-### Test
-
-```shell
-$ forge test
-```
-
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+- 3/ The passanger would call the `claimFlightTicket()` function in the `FlightBookingEmailVerifier.sol`. If a given `Proof`
+ is a valid proof (and it is validated the passanger has not claimed a filght ticket yet), a flight ticket NFT will be minted to the passanger.
