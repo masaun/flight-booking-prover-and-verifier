@@ -23,15 +23,15 @@ contract FlightBookingEmailProver is Prover {
         VerifiedEmail memory email = unverifiedEmail.verify();
 
         // @dev - Extract a subject from an email header and validate whether or not it correspond to the correct subject. 
-        // @dev - [NOTE]: This correct subject should be customized depends on which airline's website or filght booking provider's website an passenger booked. 
+        // @dev - [NOTE]: This correct subject should be customized depends on which airline's official website or an online travel agency (OTA)'s website an passenger booked. 
         require(email.subject.equal("Booking Confirmation - Booking ID #xxxxx"), "incorrect subject");
         
-        // @dev - Extract an airline's domain from email address - if a passenger book a flight via an airline's website.
-        // @dev - Or, Extract a flight booking provider's domain from email address - if a passenger book a flight via an filght booking provider's website.
+        // @dev - Extract an airline's domain from email address - if a passenger book a flight via an airline's official website.
+        // @dev - Or, Extract a flight booking provider's domain from email address - if a passenger book a flight via an online travel agency (OTA)'s website.
         string[] memory captures = email.from.capture("^[^@]+@([^@]+)$");
         require(captures.length == 2, "invalid email domain");
         require(bytes(captures[1]).length > 0, "invalid email domain");
 
-        return (proof(), sha256(abi.encodePacked(email.from)), targetWallet, captures[1]);
+        return (proof(), sha256(abi.encodePacked(email.from)), sha256(abi.encodePacked(email.subject)), targetWallet, captures[1]);
     }
 }
