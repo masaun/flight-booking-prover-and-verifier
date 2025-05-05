@@ -4,19 +4,30 @@ import {Prover} from "vlayer-0.1.0/Prover.sol";
 import {RegexLib} from "vlayer-0.1.0/Regex.sol";
 import {VerifiedEmail, UnverifiedEmail, EmailProofLib} from "vlayer-0.1.0/EmailProof.sol";
 
+/**
+ * @title - The Flight Booking Email Prover contract 
+ */
 contract FlightBookingEmailProver is Prover {
     using RegexLib for string;
     using Strings for string;
     using EmailProofLib for UnverifiedEmail;
 
-    function main(UnverifiedEmail calldata unverifiedEmail, address targetWallet)
+    /**
+     * @notice - The function to generate a ZK Proof of a flight booking from a flight booking confirmation email
+     */
+    function generateProofOfFlightBookingFromFlightBookingConfirmationEmail(UnverifiedEmail calldata unverifiedEmail, address targetWallet)
         public
         view
         returns (Proof memory, bytes32, address, string memory)
     {
         VerifiedEmail memory email = unverifiedEmail.verify();
+
+        // @dev - Extract a subject from an email header and validate whether or not it correspond to the correct subject. 
+        // @dev - [NOTE]: This correct subject should be customized depends on which airline's website or filght booking provider's website an passenger booked. 
         require(email.subject.equal("Booking Confirmation - Booking ID #xxxxx"), "incorrect subject");
-        // Extract domain from email address
+        
+        // @dev - Extract an airline's domain from email address - if a passenger book a flight via an airline's website.
+        // @dev - Or, Extract a flight booking provider's domain from email address - if a passenger book a flight via an filght booking provider's website.
         string[] memory captures = email.from.capture("^[^@]+@([^@]+)$");
         require(captures.length == 2, "invalid email domain");
         require(bytes(captures[1]).length > 0, "invalid email domain");
