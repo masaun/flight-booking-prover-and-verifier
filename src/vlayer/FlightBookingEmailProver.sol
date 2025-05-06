@@ -1,4 +1,4 @@
-[⚠️ Suspicious Content] import {Strings} from "@openzeppelin-contracts-5.0.1/utils/Strings.sol";
+import {Strings} from "@openzeppelin-contracts-5.0.1/utils/Strings.sol";
 import {Proof} from "vlayer-0.1.0/Proof.sol";
 import {Prover} from "vlayer-0.1.0/Prover.sol";
 import {RegexLib} from "vlayer-0.1.0/Regex.sol";
